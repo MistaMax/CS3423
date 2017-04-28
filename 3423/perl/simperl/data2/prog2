@@ -1,0 +1,18 @@
+#!/usr/bin/perl -w
+if(@ARGV == 0){
+    $i = 0;
+    while(<>){
+        $i++;
+        print "$i $_";
+    }
+}
+else{
+    while($arg = shift @ARGV){
+        open(FH, $arg);
+        $i = 0;
+        while(<FH>){
+            $i++;
+            print "$i $_";
+        }
+    }
+}

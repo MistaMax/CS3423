@@ -1,0 +1,54 @@
+#!/usr/bin/perl -w
+
+$pattern = shift;
+if($pattern eq "-f"){
+    $switch = 1;
+    $pattern = shift;
+}
+
+
+FILE1: foreach $arg (@ARGV){
+
+    if(-f "./$arg"){
+        if(-T "./$arg")
+        {
+
+            open(FH, "$arg");
+            @lines = <FH>;
+            close FH;
+            @matches = grep /$pattern/,@lines;
+        }
+        if($switch && @matches){
+            print "$arg\n";
+            next FILE1;
+        }
+        foreach $line (@matches){
+            print "$arg: $line";
+        }
+
+    }
+
+    elsif(-d "$arg"){
+        opendir(DH, $arg);
+ FILE2: while($file = readdir(DH)){
+
+            next unless (-f "$arg/$file");
+            if(-T "$arg/$file"){
+                open(FH, "$arg/$file");
+                @lines = <FH>;
+                close FH;
+                @matches = grep /$pattern/,@lines;
+                if($switch && @matches){
+                    print "$arg/$file\n";
+                    next FILE2;
+                }
+                foreach $line (@matches){
+                    print "$arg/$file: $line";
+                }
+            }
+            
+        }
+    
+    }
+}
+

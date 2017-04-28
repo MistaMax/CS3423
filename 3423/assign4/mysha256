@@ -1,0 +1,22 @@
+#!/usr/bin/perl -w
+$tester = 0;
+$rootfile = shift;
+open(DIRS, $rootfile) or die "Unable to open rootfile: $!\n";
+if($outfile = shift){ open(OUTFILE, "> $outfile"); $tester = 1;}
+while(<DIRS>){
+    chop;
+    opendir(DH, $_) or die "$!\n";
+    while($file = readdir(DH)){
+        next unless (-f "$_/$file");
+        $line = `/usr/bin/sha256sum $_/$file`;
+        $line =~ s/^(\S+)\s+(\S+)$/$2\t$1/;
+        if ($tester){
+            print OUTFILE "$line";
+        } 
+        else{
+            print "$line";
+        }
+
+    }
+}
+

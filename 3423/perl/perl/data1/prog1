@@ -1,0 +1,21 @@
+#!/usr/bin/perl -w
+
+$filea = shift;
+$fileb = shift;
+
+open(FHA, $filea);
+open(FHB, $fileb);
+
+@linesa = <FHA>;
+@linesb = <FHB>;
+
+while (@linesa || @linesb){
+    if(@linesa > 0){
+        print $linesa[0];
+        shift @linesa;
+    }
+    if(@linesb > 0){
+        print $linesb[0];
+        shift @linesb;
+    }
+}

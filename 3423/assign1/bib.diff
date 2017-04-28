@@ -1,0 +1,27 @@
+1c1
+< Name: Hugh B. Maynard
+---
+> Name: Cortlan D. Edgett
+3c3
+< UTSA ID:  @01234567
+---
+> UTSA ID:  @01482437
+7,16c7,13
+<       CS 1063             T. Bylander        UTSA
+<       CS 1713             K. Robbins         UTSA
+<       CS 1711             K. Robbins         UTSA
+<       CS 2123             H. Maynard         UTSA
+<       CS 2121             H. Maynard         UTSA
+<       CS 2233             T. Bylander        UTSA
+<       CS 2231             T. Bylander        UTSA
+<       CS 3333             Bopanna            UTSA
+<       CS 3331             Bopanna            UTSA
+< 
+---
+>       CS 1063             T. Korkmaz         UTSA
+>       CS 1713             L. Clark           UTSA
+>       CS 1711             L. Clark           UTSA
+>       CS 2123             T. Korkmaz         UTSA
+>       CS 2121             T. Korkmaz         UTSA
+>       CS 2233             Yuyu Tang          UTSA
+>       CS 3333             F. Norman          UTSA

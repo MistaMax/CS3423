@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+
+$dir  = shift;
+@files = `find $dir -print`;
+chop @files;
+shift @files;
+print join("\n", sort @files), "\n";
+

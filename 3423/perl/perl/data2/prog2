@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+$pattern = shift;
+foreach $arg (@ARGV){
+
+    open(FH, $arg) or die "Unable to open $arg";
+    @lines = <FH>;
+    @matches = grep(/$pattern/, @lines);
+    foreach $line (@matches){
+        print "$arg:$line";
+    }
+}

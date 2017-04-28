@@ -1,0 +1,58 @@
+#!/usr/bin/perl -w
+$sd = 1;
+$ss = 1;
+$s1 = 1;
+$s2 = 1;
+if($ARGV[0] =~ /^-/){
+    $switches = shift;
+    if($switches !~ /d/){ $sd = 0;}
+    if($switches !~ /s/){$ss = 0;}
+    if($switches !~ /1/){$s1 = 0;}
+    if($switches !~ /2/){$s2 = 0;}
+}
+
+$dir1 = shift;
+$dir2 = shift;
+
+@files1 = `find $dir1 -print`;
+chop @files1;
+@files2 = `find $dir2 -print`;
+chop @files2;
+
+@rfiles1 = grep(-f, @files1);
+@rfiles2 = grep(-f, @files2);
+
+foreach $file (@rfiles1){
+    @tmp = split("/", $file);
+    $filename = $tmp[@tmp-1];
+    $fileH1{$filename} = $file;
+}
+
+foreach $file (@rfiles2){
+    @tmp = split("/", $file);
+    $filename = $tmp[@tmp-1];
+    $fileH2{$filename} = $file;
+}
+
+foreach $fileName (sort keys %fileH1){
+    if(exists $fileH2{$fileName}){
+        $diff = `/usr/bin/diff -q $fileH1{$fileName} $fileH2{$fileName}`;
+        if($ss && !$diff){
+            print "< $fileName >\n";
+        }
+        elsif($sd && $diff){
+            print "> $fileName <\n"
+        }
+    }
+    elsif($s1){
+        print "<<< $fileName\n";
+    }
+
+}
+
+if($s2){
+    foreach $fileName (sort keys %fileH2){
+        next if exists $fileH1{$fileName};
+        print ">>> $fileName\n";
+    }
+}
